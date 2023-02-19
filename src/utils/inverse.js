@@ -1,4 +1,5 @@
 // return a matrix that represents the inverse
+const Fraction = require('@mathematics/fraction');
 
 const adjoint = require("./adjoint");
 const determinant = require("./determinant");
@@ -8,9 +9,10 @@ const calcInverse = (matrix = []) => {
     const det = determinant(matrix)
     const adj = adjoint(matrix)
     let inv = JSON.parse(JSON.stringify(matrix))
-    matrix.forEach((row, i) => {
-        for (let j = 0; j < matrix.length; j++) {
-            inv[i][j] = (1/det) * matrix[i][j]
+    adj.forEach((row, i) => {
+        for (let j = 0; j < adj.length; j++) {
+            const OPERATION = new Fraction(adj[i][j], det) || ((1/det) * adj[i][j]) // if npm packg is down
+            inv[i][j] = OPERATION.toString()
         }
     })
     return inv

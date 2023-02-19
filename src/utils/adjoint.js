@@ -1,6 +1,6 @@
 // return a new matrix
 // i = row, j = column
-// Cij = (-1)^(i + j) * det(Mij)
+// Cij = (-1)^(i + j) * det(Mij) then Transpose
 const determinant = require("./determinant");
 
 const deleteRowElem = (i, matrix = []) => {
@@ -27,7 +27,8 @@ const adjGreaterThan3 = (matrix = []) => {
             const firstOperator = Math.pow(-1, ((i + 1) + (j + 1))) 
             const minor = getMinor(matrix, i, j)
             const cofactor = firstOperator * determinant(minor) //Cij = an element of the adjoint
-            adjoint[i][j] = cofactor 
+            // Transpose the matrix, aij --> aji
+            adjoint[j][i] = cofactor 
         });
     });
     return adjoint
